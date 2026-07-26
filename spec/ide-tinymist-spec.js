@@ -19,7 +19,7 @@ describe("ide-tinymist server resolution", () => {
 describe("ide-tinymist adapter", () => {
   it("registers with the language-server service", () => {
     let adapter;
-    const disposable = main.consumeLanguageServer({
+    const disposable = main.consumeIdeClient({
       registerAdapter(registered) {
         adapter = registered;
         return { dispose() {} };

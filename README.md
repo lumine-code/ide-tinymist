@@ -15,7 +15,7 @@ To install `ide-tinymist` search for _ide-tinymist_ in the Install pane of the L
 
 ## Services
 
-- **lumine.languageServer** (`^1.0.0`): consumed to register the Tinymist adapter with the editor's language-server client.
+- **ide-client** (`^1.0.0`): consumed to register the Tinymist adapter with the editor's language-server client.
 
 ## Contributing
 
