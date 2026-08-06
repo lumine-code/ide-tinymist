@@ -50,6 +50,260 @@
       "description": "Absolute path to a `tinymist` executable. Leave empty to look it up on PATH.",
       "type": "string",
       "default": ""
+    },
+    "features": {
+      "title": "Features",
+      "description": "Which parts of Tinymist the editor uses. Turning one off hands it to the next server serving the same file.",
+      "type": "object",
+      "properties": {
+        "diagnostics": {
+          "title": "Diagnostics",
+          "description": "Report compile errors, and lint findings when linting is on.",
+          "type": "boolean",
+          "default": true
+        },
+        "autocomplete": {
+          "title": "Autocomplete",
+          "description": "Offer completions for functions, symbols and paths.",
+          "type": "boolean",
+          "default": true
+        },
+        "hover": {
+          "title": "Hover",
+          "description": "Show documentation and rendered values on hover.",
+          "type": "boolean",
+          "default": true
+        },
+        "signature": {
+          "title": "Signature Help",
+          "description": "Show the call signature while typing arguments.",
+          "type": "boolean",
+          "default": true
+        },
+        "definition": {
+          "title": "Go To Definition",
+          "description": "Jump to where a name is bound.",
+          "type": "boolean",
+          "default": true
+        },
+        "references": {
+          "title": "Find References",
+          "description": "List the uses of a name.",
+          "type": "boolean",
+          "default": true
+        },
+        "symbols": {
+          "title": "Symbols",
+          "description": "Serve document and project symbols to go-to-symbol.",
+          "type": "boolean",
+          "default": true
+        },
+        "outline": {
+          "title": "Outline",
+          "description": "Fill the outline panel with the document's headings.",
+          "type": "boolean",
+          "default": true
+        },
+        "format": {
+          "title": "Format",
+          "description": "Format documents with the formatter chosen below.",
+          "type": "boolean",
+          "default": true
+        },
+        "rename": {
+          "title": "Rename",
+          "description": "Rename a name across the project.",
+          "type": "boolean",
+          "default": true
+        },
+        "codeActions": {
+          "title": "Code Actions",
+          "description": "Offer Tinymist's fixes in the intentions list.",
+          "type": "boolean",
+          "default": true
+        },
+        "inlayHints": {
+          "title": "Inlay Hints",
+          "description": "Show inferred argument names inline.",
+          "type": "boolean",
+          "default": true
+        },
+        "codeLens": {
+          "title": "Code Lens",
+          "description": "Show the export and preview links above the document.",
+          "type": "boolean",
+          "default": true
+        },
+        "semanticTokens": {
+          "title": "Semantic Tokens",
+          "description": "Colour the document with Tinymist's classification. Turning this off also stops the server computing it.",
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "fontPaths": {
+      "title": "Font Paths",
+      "description": "Directories, or single font files, to load fonts from in addition to the ones Typst ships. Relative paths resolve against the project root.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "systemFonts": {
+      "title": "System Fonts",
+      "description": "Load the fonts installed on this machine. Turning this off makes a document compile the same way everywhere, at the cost of the fonts you have locally.",
+      "type": "boolean",
+      "default": true
+    },
+    "rootPath": {
+      "title": "Root Path",
+      "description": "The directory Typst treats as the root, which absolute paths in a document resolve against. Leave empty to use the project folder.",
+      "type": "string",
+      "default": ""
+    },
+    "outputPath": {
+      "title": "Output Path",
+      "description": "Where exports are written. `$root` and `$dir` are the project root and the document's directory, and `$name` is its name without the extension. Leave empty to write beside the document.",
+      "type": "string",
+      "default": ""
+    },
+    "exportPdf": {
+      "title": "Export PDF",
+      "description": "When to export a PDF. Off by default because the `typst-tools` package already compiles Typst documents, and both on means every save exports twice.",
+      "type": "string",
+      "enum": [
+        "never",
+        "onSave",
+        "onType",
+        "onDocumentHasTitle"
+      ],
+      "default": "never"
+    },
+    "exportTarget": {
+      "title": "Export Target",
+      "description": "What the document is compiled to. `paged` is the usual page-based output; `html` targets Typst's HTML export.",
+      "type": "string",
+      "enum": [
+        "paged",
+        "html"
+      ],
+      "default": "paged"
+    },
+    "typstExtraArgs": {
+      "title": "Typst Arguments",
+      "description": "Extra arguments passed to the compiler, as they would be written on a `typst compile` command line.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "projectResolution": {
+      "title": "Project Resolution",
+      "description": "How the file being edited is matched to the document it belongs to. `singleFile` compiles each file on its own; `lockDatabase` reads the project lock file, so editing an included file compiles the document that includes it.",
+      "type": "string",
+      "enum": [
+        "singleFile",
+        "lockDatabase"
+      ],
+      "default": "singleFile"
+    },
+    "syntaxOnly": {
+      "title": "Syntax Only",
+      "description": "Answer from the syntax tree alone, without compiling. Much cheaper, but there are no rendered values, no cross-file navigation and no compile errors. `auto` decides per document.",
+      "type": "string",
+      "enum": [
+        "auto",
+        "onPowerSaving",
+        "enable",
+        "disable"
+      ],
+      "default": "auto"
+    },
+    "formatterMode": {
+      "title": "Formatter",
+      "description": "Which formatter formats Typst documents. Both are built into Tinymist and need nothing installed.",
+      "type": "string",
+      "enum": [
+        "disable",
+        "typstyle",
+        "typstfmt"
+      ],
+      "default": "typstyle"
+    },
+    "formatterPrintWidth": {
+      "title": "Formatter Print Width",
+      "description": "Column the formatter tries to stay within. Set to 0 to use the formatter's own default.",
+      "type": "integer",
+      "minimum": 0,
+      "default": 120
+    },
+    "formatterIndentSize": {
+      "title": "Formatter Indent Size",
+      "description": "Spaces the formatter indents by.",
+      "type": "integer",
+      "minimum": 1,
+      "default": 2
+    },
+    "formatterProseWrap": {
+      "title": "Formatter Prose Wrap",
+      "description": "Let the formatter break prose at the print width, rather than leaving paragraphs as written.",
+      "type": "boolean",
+      "default": false
+    },
+    "lint": {
+      "title": "Lint",
+      "description": "Tinymist can report style and correctness warnings on top of the compiler's own errors.",
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "title": "Enabled",
+          "description": "Report lint findings.",
+          "type": "boolean",
+          "default": false
+        },
+        "when": {
+          "title": "When",
+          "description": "How often the document is linted.",
+          "type": "string",
+          "enum": [
+            "onSave",
+            "onType"
+          ],
+          "default": "onSave"
+        }
+      }
+    },
+    "completion": {
+      "title": "Completion",
+      "description": "What the completion list offers.",
+      "type": "object",
+      "properties": {
+        "postfix": {
+          "title": "Postfix Completions",
+          "description": "Offer completions that wrap what you have already written, such as turning a value into a call.",
+          "type": "boolean",
+          "default": true
+        },
+        "symbol": {
+          "title": "Symbol Completions",
+          "description": "How a symbol such as `sym.alpha` is completed. `step` completes one part at a time; `stepless` offers the whole name at once.",
+          "type": "string",
+          "enum": [
+            "step",
+            "stepless"
+          ],
+          "default": "step"
+        },
+        "triggerOnSnippetPlaceholders": {
+          "title": "Trigger On Snippet Placeholders",
+          "description": "Offer completions inside the placeholders of an accepted snippet.",
+          "type": "boolean",
+          "default": false
+        }
+      }
     }
   }
 }
