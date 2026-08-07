@@ -90,6 +90,9 @@ describe("ide-tinymist adapter", () => {
     expect(options.rootPath).toBeUndefined();
     expect(options.fontPaths).toBeUndefined();
     expect(options.typstExtraArgs).toBeUndefined();
+    // An empty output pattern is a pattern, not an absent one, and Tinymist
+    // resolves it to a relative path it then refuses.
+    expect(options.outputPath).toBeUndefined();
     atom.config.set("ide-tinymist.formatterPrintWidth", 0);
     expect(adapter.getWorkspaceConfiguration("tinymist").formatterPrintWidth).toBeUndefined();
   });
