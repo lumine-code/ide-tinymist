@@ -36,12 +36,12 @@ describe("ide-tinymist adapter", () => {
   beforeEach(async () => {
     // Applies the configSchema, so the defaults the adapter reads are the ones
     // the manifest declares rather than undefined.
-    await atom.packages.activatePackage("ide-tinymist");
+    await lumine.packages.activatePackage("ide-tinymist");
     ({ adapter, disposable } = registerAdapter());
   });
   afterEach(async () => {
     disposable.dispose();
-    await atom.packages.deactivatePackage("ide-tinymist");
+    await lumine.packages.deactivatePackage("ide-tinymist");
   });
 
   it("registers with the language-server service", () => {
@@ -55,8 +55,8 @@ describe("ide-tinymist adapter", () => {
     // once bare, and takes whichever answer is not null. Answering only the
     // section called `tinymist` — which is what reading a Lumine namespace of
     // that name used to amount to — leaves every item null.
-    atom.config.set("ide-tinymist.fontPaths", ["/fonts"]);
-    atom.config.set("ide-tinymist.formatterMode", "typstfmt");
+    lumine.config.set("ide-tinymist.fontPaths", ["/fonts"]);
+    lumine.config.set("ide-tinymist.formatterMode", "typstfmt");
 
     expect(adapter.getWorkspaceConfiguration("tinymist.fontPaths")).toEqual(["/fonts"]);
     expect(adapter.getWorkspaceConfiguration("fontPaths")).toEqual(["/fonts"]);
@@ -70,7 +70,7 @@ describe("ide-tinymist adapter", () => {
   });
 
   it("carries the same options through the handshake and the push", () => {
-    atom.config.set("ide-tinymist.systemFonts", false);
+    lumine.config.set("ide-tinymist.systemFonts", false);
     expect(adapter.getInitializationOptions().systemFonts).toBe(false);
     expect(adapter.getSettings().tinymist.systemFonts).toBe(false);
   });
@@ -93,14 +93,14 @@ describe("ide-tinymist adapter", () => {
     // An empty output pattern is a pattern, not an absent one, and Tinymist
     // resolves it to a relative path it then refuses.
     expect(options.outputPath).toBeUndefined();
-    atom.config.set("ide-tinymist.formatterPrintWidth", 0);
+    lumine.config.set("ide-tinymist.formatterPrintWidth", 0);
     expect(adapter.getWorkspaceConfiguration("tinymist").formatterPrintWidth).toBeUndefined();
   });
 
   it("stops the server classifying tokens when the switch is off", () => {
     // One control, not two: what the editor would discard is not computed.
     expect(adapter.getWorkspaceConfiguration("tinymist").semanticTokens).toBe("enable");
-    atom.config.set("ide-tinymist.features.semanticTokens", false);
+    lumine.config.set("ide-tinymist.features.semanticTokens", false);
     expect(adapter.getWorkspaceConfiguration("tinymist").semanticTokens).toBe("disable");
   });
 
