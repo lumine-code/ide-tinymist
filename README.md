@@ -6,7 +6,8 @@ Registers the [tinymist](https://github.com/Myriad-Dreamin/tinymist) language se
 
 ## Features
 
-- **PATH discovery**: finds `tinymist` on your PATH, or uses the Server Path setting.
+- **Server discovery**: uses the Server Path setting, a copy the editor installed for you, or `tinymist` on your PATH, in that order.
+- **Managed install**: downloads tinymist from its GitHub releases and keeps it current, verifying each download against the published checksum.
 - **Fonts**: loads fonts from your own directories, and can ignore the ones installed on the machine so a document compiles the same way everywhere.
 - **Formatting**: formats with `typstyle` or `typstfmt`, both built into the server, at the print width and indent you choose.
 - **Linting**: reports style and correctness warnings on top of the compiler's errors, on save or as you type.

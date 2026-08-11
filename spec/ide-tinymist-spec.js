@@ -1,5 +1,5 @@
 const path = require("path");
-const { resolveServer, findOnPath } = require("../lib/server");
+const { resolveServer, findOnPath, assetFor } = require("../lib/server");
 const main = require("../lib/main");
 
 const registerAdapter = () => {
@@ -26,6 +26,30 @@ describe("ide-tinymist server resolution", () => {
     const name = path.basename(process.execPath, path.extname(process.execPath));
     expect(findOnPath(name, { PATH: dir, PATHEXT: ".EXE" })).toBeTruthy();
     expect(findOnPath("definitely-not-a-real-binary", { PATH: dir })).toBeNull();
+  });
+  it("prefers a managed install over PATH, and the configured path over both", async () => {
+    const managed = { binaryPath: "/managed/tinymist", version: "0.15.2" };
+    const launch = await resolveServer("", managed);
+    expect(launch.command).toBe("/managed/tinymist");
+    expect(launch.args).toEqual(["lsp"]);
+    expect(launch.version).toBe("0.15.2");
+    expect((await resolveServer(process.execPath, managed)).command).toBe(process.execPath);
+  });
+  it("names the language server's asset, never the docs tool published beside it", () => {
+    // The same release carries `tinymist-docs-tool-<target>` archives, so the
+    // name is computed exactly rather than matched by prefix.
+    expect(assetFor({ platform: "win32", arch: "x64" })).toBe(
+      "tinymist-x86_64-pc-windows-msvc.zip",
+    );
+    expect(assetFor({ platform: "darwin", arch: "arm64" })).toBe(
+      "tinymist-aarch64-apple-darwin.tar.gz",
+    );
+    expect(assetFor({ platform: "linux", arch: "x64" })).toBe(
+      "tinymist-x86_64-unknown-linux-gnu.tar.gz",
+    );
+    expect(assetFor({ platform: "aix", arch: "ppc64" })).toBeNull();
+    for (const platform of ["win32", "darwin", "linux"])
+      expect(assetFor({ platform, arch: "x64" })).not.toContain("docs-tool");
   });
 });
 
