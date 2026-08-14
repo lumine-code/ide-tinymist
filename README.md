@@ -17,11 +17,11 @@ Registers the [tinymist](https://github.com/Myriad-Dreamin/tinymist) language se
 
 ## Installation
 
-To install `ide-tinymist` search for _ide-tinymist_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/ide-tinymist`. The `tinymist` binary itself is installed separately — prebuilt binaries are available from its releases, or build it with `cargo install tinymist`.
+To install `ide-tinymist` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/ide-tinymist`. The `tinymist` binary itself is installed separately — prebuilt binaries are available from its releases, or build it with `cargo install tinymist`.
 
 ## Services
 
-- **ide-client** (`^1.0.0`): consumed to register the Tinymist adapter with the editor's language-server client.
+- `ide-client`: consumed to register the Tinymist adapter with the editor's language-server client.
 
 ## Contributing
 
