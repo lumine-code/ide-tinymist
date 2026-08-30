@@ -140,7 +140,6 @@ describe("ide-tinymist adapter", () => {
       "definition",
       "references",
       "symbols",
-      "outline",
       "format",
       "rename",
       "codeActions",
