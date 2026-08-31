@@ -72,6 +72,11 @@ describe("ide-tinymist adapter", () => {
     expect(adapter.id).toBe("ide-tinymist");
     expect(adapter.grammarScopes).toEqual(["source.typst"]);
     expect(adapter.settingsKeyPaths).toEqual(["ide-tinymist"]);
+    expect(adapter.restartKeyPaths).toEqual([
+      "ide-tinymist.serverPath",
+      "ide-tinymist.fontPaths",
+      "ide-tinymist.systemFonts",
+    ]);
   });
 
   it("answers each configuration item the server asks for by name", () => {
