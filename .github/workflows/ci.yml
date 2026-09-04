@@ -49,6 +49,7 @@ jobs:
     timeout-minutes: 60
     env:
       LUMINE_JASMINE_REPORTER: list
+      TINYMIST_VERSION: 0.15.2
     steps:
       - uses: actions/checkout@v6
         with:
@@ -73,6 +74,16 @@ jobs:
       # no ssh key, so rewrite them to anonymous HTTPS (the forks are public).
       - name: Use HTTPS for GitHub git dependencies
         run: git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+      - name: Install Tinymist
+        working-directory: ide-tinymist
+        run: |
+          asset="tinymist-x86_64-unknown-linux-gnu.tar.gz"
+          curl -fsSLO "https://github.com/Myriad-Dreamin/tinymist/releases/download/v${TINYMIST_VERSION}/${asset}"
+          curl -fsSLO "https://github.com/Myriad-Dreamin/tinymist/releases/download/v${TINYMIST_VERSION}/${asset}.sha256"
+          sha256sum --check "${asset}.sha256"
+          mkdir .server
+          tar -xzf "${asset}" --strip-components=1 -C .server
+          echo "$PWD/.server" >> "$GITHUB_PATH"
       - name: Install package dependencies
         working-directory: ide-tinymist
         run: npm ci --ignore-scripts

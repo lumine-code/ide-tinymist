@@ -42,7 +42,8 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-n": "^18.3.0",
     "globals": "^17.11.0",
-    "prettier": "^3.9.6"
+    "prettier": "^3.9.6",
+    "vscode-jsonrpc": "^9.0.2"
   },
   "configSchema": {
     "serverPath": {
@@ -197,11 +198,12 @@
     },
     "exportTarget": {
       "title": "Export Target",
-      "description": "What the document is compiled to. `paged` is the usual page-based output; `html` targets Typst's HTML export.",
+      "description": "What the document is compiled to. `paged` is the usual page-based output; `html` targets HTML and `bundle` supports multi-document bundles.",
       "type": "string",
       "enum": [
         "paged",
-        "html"
+        "html",
+        "bundle"
       ],
       "default": "paged"
     },
@@ -298,6 +300,24 @@
         "postfix": {
           "title": "Postfix Completions",
           "description": "Offer completions that wrap what you have already written, such as turning a value into a call.",
+          "type": "boolean",
+          "default": true
+        },
+        "postfixUfcs": {
+          "title": "UFCS Completions",
+          "description": "Offer function-style completions after a value, such as turning `[A].box` into `box[A]`.",
+          "type": "boolean",
+          "default": true
+        },
+        "postfixUfcsLeft": {
+          "title": "UFCS Left Argument",
+          "description": "Offer completions that put the cursor before the value, such as `table(|)[A]`.",
+          "type": "boolean",
+          "default": true
+        },
+        "postfixUfcsRight": {
+          "title": "UFCS Right Argument",
+          "description": "Offer completions that put the value first, such as `table([A], |)`.",
           "type": "boolean",
           "default": true
         },

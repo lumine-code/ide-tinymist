@@ -76,6 +76,14 @@ describe("ide-tinymist adapter", () => {
       "ide-tinymist.serverPath",
       "ide-tinymist.fontPaths",
       "ide-tinymist.systemFonts",
+      "ide-tinymist.lint.enabled",
+      "ide-tinymist.lint.when",
+      "ide-tinymist.completion.postfix",
+      "ide-tinymist.completion.postfixUfcs",
+      "ide-tinymist.completion.postfixUfcsLeft",
+      "ide-tinymist.completion.postfixUfcsRight",
+      "ide-tinymist.completion.symbol",
+      "ide-tinymist.completion.triggerOnSnippetPlaceholders",
     ]);
   });
 
@@ -102,6 +110,38 @@ describe("ide-tinymist adapter", () => {
     lumine.config.set("ide-tinymist.systemFonts", false);
     expect(adapter.getInitializationOptions().systemFonts).toBe(false);
     expect(adapter.getSettings().tinymist.systemFonts).toBe(false);
+  });
+
+  it("maps bundle export and every UFCS completion mode", () => {
+    lumine.config.set("ide-tinymist.exportTarget", "bundle");
+    lumine.config.set("ide-tinymist.completion.postfixUfcs", false);
+    lumine.config.set("ide-tinymist.completion.postfixUfcsLeft", false);
+    lumine.config.set("ide-tinymist.completion.postfixUfcsRight", false);
+
+    const options = adapter.getWorkspaceConfiguration("tinymist");
+    expect(options.exportTarget).toBe("bundle");
+    expect(options.completion.postfixUfcs).toBe(false);
+    expect(options.completion.postfixUfcsLeft).toBe(false);
+    expect(options.completion.postfixUfcsRight).toBe(false);
+    for (const key of [
+      "exportTarget",
+      "completion.postfixUfcs",
+      "completion.postfixUfcsLeft",
+      "completion.postfixUfcsRight",
+    ])
+      lumine.config.unset(`ide-tinymist.${key}`);
+  });
+
+  it("uses the Typst grammar override for server-side semantic-token settings", () => {
+    lumine.config.set("ide-tinymist.features.semanticTokens", false);
+    lumine.config.set("ide-tinymist.features.semanticTokens", true, {
+      scopeSelector: ".source.typst",
+    });
+    expect(adapter.getWorkspaceConfiguration("tinymist").semanticTokens).toBe("enable");
+    lumine.config.unset("ide-tinymist.features.semanticTokens", {
+      scopeSelector: ".source.typst",
+    });
+    lumine.config.unset("ide-tinymist.features.semanticTokens");
   });
 
   it("keeps the defaults that avoid duplicating typst-tools", () => {
