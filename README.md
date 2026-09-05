@@ -17,7 +17,9 @@ Registers the [tinymist](https://github.com/Myriad-Dreamin/tinymist) language se
 
 ## Installation
 
-Install `ide-client` first, then search for `ide-tinymist` in the Install pane of the Lumine settings, or run `lumine --install lumine-code/ide-tinymist`. You can provide a release binary or build one with `cargo install tinymist`, or let the editor fetch it from Manage Servers.
+To install `ide-tinymist` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/ide-tinymist`.
+
+Install `ide-client` first. You can provide a release binary or build one with `cargo install tinymist`, or let the editor fetch it from Manage Servers.
 
 ## Services
 
