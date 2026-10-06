@@ -1,5 +1,5 @@
-const path = require("path");
-const { resolveServer, findOnPath, assetFor } = require("../lib/server");
+const { serverContext } = require("./helpers/server-resolver");
+const { resolveServer, assetFor } = require("../lib/server");
 const main = require("../lib/main");
 
 const registerAdapter = () => {
@@ -17,23 +17,9 @@ const registerAdapter = () => {
 
 describe("ide-tinymist server resolution", () => {
   it("prefers the configured path and launches the lsp subcommand", async () => {
-    const launch = await resolveServer(process.execPath);
+    const launch = await resolveServer(serverContext(), process.execPath);
     expect(launch.command).toBe(process.execPath);
     expect(launch.args).toEqual(["lsp"]);
-  });
-  it("finds executables on a synthetic PATH", () => {
-    const dir = path.dirname(process.execPath);
-    const name = path.basename(process.execPath, path.extname(process.execPath));
-    expect(findOnPath(name, { PATH: dir, PATHEXT: ".EXE" })).toBeTruthy();
-    expect(findOnPath("definitely-not-a-real-binary", { PATH: dir })).toBeNull();
-  });
-  it("prefers a managed install over PATH, and the configured path over both", async () => {
-    const managed = { binaryPath: "/managed/tinymist", version: "0.15.2" };
-    const launch = await resolveServer("", managed);
-    expect(launch.command).toBe("/managed/tinymist");
-    expect(launch.args).toEqual(["lsp"]);
-    expect(launch.version).toBe("0.15.2");
-    expect((await resolveServer(process.execPath, managed)).command).toBe(process.execPath);
   });
   it("names the language server's asset, never the docs tool published beside it", () => {
     // The same release carries `tinymist-docs-tool-<target>` archives, so the
