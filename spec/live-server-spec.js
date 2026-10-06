@@ -19,7 +19,7 @@ liveSuite("ide-tinymist official server", () => {
     rootPath = fs.mkdtempSync(path.join(os.tmpdir(), "ide-tinymist-live-"));
     await lumine.packages.activatePackage("ide-tinymist");
     lumine.config.set("ide-tinymist.serverPath", serverPath);
-    disposable = main.consumeIdeClient({
+    disposable = main.consumeIde({
       registerAdapter(registered) {
         adapter = registered;
         return { dispose() {} };
