@@ -12,7 +12,7 @@ Registers the [tinymist](https://github.com/Myriad-Dreamin/tinymist) language se
 - **Formatting**: formats with `typstyle` or `typstfmt`, both built into the server, at the print width and indent you choose.
 - **Linting**: reports style and correctness warnings on top of the compiler's errors, on save or as you type.
 - **Compilation**: resolves each file on its own or through the project lock file, with your own compiler arguments, paged, HTML, or bundle targets, and an optional PDF export, off by default because the `typst-tools` package already compiles Typst documents.
-- **Feature switches**: any of the fourteen capabilities Tinymist serves can be turned off, which hands it to another server on the same file.
+- **Feature switches**: choose which supported capabilities the editor uses, letting another server handle the ones you disable.
 - **Project sessions**: one server per project root, started lazily with the first Typst editor.
 
 ## Installation
