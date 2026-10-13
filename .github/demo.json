@@ -1,0 +1,16 @@
+{
+  "title": "ide-tinymist",
+  "description": "Tinymist locates an unknown function in a Typst document.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "1941aa72d573a55a09621cd5eb87cd725679a8f2",
+  "mode": "normal",
+  "fontSettings": "default",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "Tinymist locates an unknown function in a Typst document.",
+      "width": 1100,
+      "height": 490
+    }
+  ]
+}

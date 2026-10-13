@@ -15,6 +15,8 @@ Registers the [tinymist](https://github.com/Myriad-Dreamin/tinymist) language se
 - **Feature switches**: choose which supported capabilities the editor uses, letting another server handle the ones you disable.
 - **Project sessions**: one server per project root, started lazily with the first Typst editor.
 
+![Tinymist locates an unknown function in a Typst document.](.github/demo.png)
+
 ## Installation
 
 To install `ide-tinymist` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/ide-tinymist`.
