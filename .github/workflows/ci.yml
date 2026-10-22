@@ -49,7 +49,7 @@ jobs:
     timeout-minutes: 60
     env:
       LUMINE_JASMINE_REPORTER: list
-      TINYMIST_VERSION: 0.15.2
+      TINYMIST_VERSION: 0.15.10
     steps:
       - uses: actions/checkout@v7
         with:
